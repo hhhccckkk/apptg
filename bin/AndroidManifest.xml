@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="23"
+        android:targetSdkVersion="25" />
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 读取网络信息权限，用于识别GPRS网络的接入点 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 读取手机基本信息权限，用于精确统计用户的机型等信息 -->
