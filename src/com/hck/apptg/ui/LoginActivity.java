@@ -3,6 +3,7 @@ package com.hck.apptg.ui;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +21,7 @@ import com.baidu.location.BDLocation;
 import com.hck.apptg.R;
 import com.hck.apptg.downapp.UpdateUtil;
 import com.hck.apptg.downapp.UpdateUtil.UpdateAppCallBack;
+import com.hck.apptg.util.AppManager;
 import com.hck.apptg.util.LogUtil;
 import com.hck.apptg.util.MyToast;
 
@@ -90,7 +92,7 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 				Message message = new Message();
 				message.what = LOGIN_ERROR;
 				handler.sendMessage(message);
-				LogUtil.D("onError: "+arg1+": "+arg2);
+				LogUtil.D("onError: " + arg1 + ": " + arg2);
 			}
 
 			@Override
@@ -112,7 +114,7 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 				Message message = new Message();
 				message.what = LOGIN_CANCEL;
 				handler.sendMessage(message);
-				LogUtil.D("onCancel: "+arg1+": ");
+				LogUtil.D("onCancel: " + arg1 + ": ");
 
 			}
 		});
@@ -135,7 +137,8 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 				pBar.setVisibility(View.VISIBLE);
 				loginBtn.setVisibility(View.VISIBLE);
 				MyToast.showCustomerToast("登录成功");
-
+				AppManager.getAppManager().startActivity(LoginActivity.this,
+						MainActivity.class);
 			}
 
 		};

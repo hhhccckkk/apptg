@@ -1,32 +1,30 @@
 package com.hck.apptg.ui;
 
 import android.app.Activity;
-import android.app.LocalActivityManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.TabActivity;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TabHost;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 import com.hck.apptg.R;
-import com.hck.apptg.data.Constant;
-import com.hck.apptg.util.MyPreferences;
+import com.hck.apptg.presenter.MainPresenter;
+import com.hck.apptg.util.LogUtil;
 import com.hck.apptg.view.BadgeView;
+import com.hck.apptg.view.PopupWindowView;
+import com.hck.apptg.view.PopupWindowView.PopCallBack;
 
-public class MainActivity extends Activity implements OnCheckedChangeListener {
-	private static final String HOME = "home";
-	private static final String BAODIAN = "baodian";
+public class MainActivity extends TabActivity implements
+		OnCheckedChangeListener {
+	private static final String ZIYUAN = "ziyuan";
+	private static final String QUDAO = "qudao";
 	private static final String FATIE = "fatie";
 	private static final String XIAOXI = "xiaoxi";
 	private static final String USER = "user";
@@ -35,21 +33,23 @@ public class MainActivity extends Activity implements OnCheckedChangeListener {
 	public RadioButton ziYuanButton, quDaoButton, fatieButton, messageButton,
 			userButton;
 	private RadioGroup radioGroup;
-	private Activity activity;
 	private BadgeView badgeView;
 	private int oldCheckId;
 	private View remindView;
+	private MainPresenter mMainPresenter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		mMainPresenter = new MainPresenter(this);
 		initView();
 		setListener();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void initView() {
-		tabHost = (TabHost) findViewById(R.id.tabHost);
+		tabHost = getTabHost();
 		radioGroup = (RadioGroup) findViewById(R.id.RadioG);
 		ziYuanButton = (RadioButton) findViewById(R.id.mainZiYuan);
 		quDaoButton = (RadioButton) findViewById(R.id.mainQuDao);
@@ -80,10 +80,12 @@ public class MainActivity extends Activity implements OnCheckedChangeListener {
 	}
 
 	private void addSpec() {
-		tabSpec1 = tabHost.newTabSpec(HOME).setIndicator(HOME)
+		tabSpec1 = tabHost.newTabSpec(ZIYUAN).setIndicator(ZIYUAN)
 				.setContent(new Intent(this, ZiYuanActivity.class));
+		LogUtil.D("tabSpec1tabSpec1: " + tabSpec1);
+		LogUtil.D("tabHost: " + tabHost);
 		tabHost.addTab(tabSpec1);
-		tabSpec2 = tabHost.newTabSpec(BAODIAN).setIndicator(BAODIAN)
+		tabSpec2 = tabHost.newTabSpec(QUDAO).setIndicator(QUDAO)
 				.setContent(new Intent(this, QuDaoActivity.class));
 		tabHost.addTab(tabSpec2);
 
@@ -115,6 +117,8 @@ public class MainActivity extends Activity implements OnCheckedChangeListener {
 			break;
 		case R.id.mainFaTie:
 			fatieButton.setChecked(false);
+			mMainPresenter.startAnimation(fatieButton);
+			mMainPresenter.showPopWindown(fatieButton);
 			oldCheckId = R.id.mainFaTie;
 			break;
 		case R.id.mainMessage:
