@@ -92,6 +92,7 @@ public class SplashActivity extends Activity implements UpdateAppCallBack {
 				Message message = new Message();
 				message.what = LOGIN_ERROR;
 				handler.sendMessage(message);
+				LogUtil.D("onError: "+arg1+": "+arg2);
 			}
 
 			@Override
@@ -113,6 +114,7 @@ public class SplashActivity extends Activity implements UpdateAppCallBack {
 				Message message = new Message();
 				message.what = LOGIN_CANCEL;
 				handler.sendMessage(message);
+				LogUtil.D("onCancel: "+arg1+": ");
 
 			}
 		});
