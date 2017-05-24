@@ -23,15 +23,13 @@ import com.hck.apptg.downapp.UpdateUtil.UpdateAppCallBack;
 import com.hck.apptg.util.LogUtil;
 import com.hck.apptg.util.MyToast;
 
-public class SplashActivity extends Activity implements UpdateAppCallBack {
+public class LoginActivity extends Activity implements UpdateAppCallBack {
 	private static final int LOGIN_ERROR = 0;
 	private static final int LOGIN_SUCCESS = 1;
 	private static final int LOGIN_CANCEL = 2;
-	// private BanBenBean banBenBean; // 版本信息
 	private Button loginBtn; // 登录按钮
 	private View pBar; // 圈圈
 	private BDLocation bdLocation;
-	// private UserBean userBean;
 	private String userName;
 
 	@Override

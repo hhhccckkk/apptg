@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">apptg</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">APP推广平台</string>
+    <string name="main_ziyuan">资源</string>
+    <string name="main_qudao">渠道</string>
+    <string name="main_message">信息</string>
+    <string name="main_user">用户</string>
 
 </resources>

@@ -40,7 +40,7 @@
         <item name="android:gravity">bottom</item>
         <!-- 让dadiobutton不显示那个button -->
         <item name="android:button">@null</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingTop">15dp</item>
         <item name="android:textSize">12sp</item>
         <!-- 让3个button一样大小 -->
         <item name="android:textStyle">bold</item>
