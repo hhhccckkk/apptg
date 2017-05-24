@@ -105,10 +105,10 @@ public class MainActivity extends TabActivity implements
 	}
 
 	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) { // 点击按钮事件
+	public void onCheckedChanged(RadioGroup group, int checkedId) { 
 		switch (checkedId) {
-		case R.id.mainZiYuan: // 点击第一个按钮
-			tabHost.setCurrentTab(0); // 显示第一个选项卡，即跳到MainLeft
+		case R.id.mainZiYuan: 
+			tabHost.setCurrentTab(0); 
 			oldCheckId = R.id.mainZiYuan;
 			break;
 		case R.id.mainQuDao:

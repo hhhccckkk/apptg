@@ -9,6 +9,12 @@ import com.hck.apptg.ui.MainActivity;
 import com.hck.apptg.view.PopupWindowView;
 import com.hck.apptg.view.PopupWindowView.PopCallBack;
 
+/**
+ * mainactivity逻辑处理类
+ * 
+ * @author hck
+ * 
+ */
 public class MainPresenter implements PopCallBack {
 	private MainActivity mainActivity;
 	private PopupWindowView pWindowView;
@@ -17,6 +23,11 @@ public class MainPresenter implements PopCallBack {
 		this.mainActivity = mainActivity;
 	}
 
+	/**
+	 * 在相应的view弹出框
+	 * 
+	 * @param button
+	 */
 	public void showPopWindown(Button button) {
 		if (pWindowView != null) {
 			hidenPop();
@@ -27,6 +38,9 @@ public class MainPresenter implements PopCallBack {
 
 	}
 
+	/**
+	 * 影藏弹窗
+	 */
 	private void hidenPop() {
 		if (pWindowView != null && pWindowView.popupWindow != null) {
 			pWindowView.popupWindow.dismiss();
@@ -36,6 +50,12 @@ public class MainPresenter implements PopCallBack {
 
 	}
 
+	/**
+	 * 开启动画
+	 * 
+	 * @param fatieButton
+	 *            发帖按钮
+	 */
 	public void startAnimation(Button fatieButton) {
 		if (pWindowView == null) {
 			startLeftRoat(fatieButton);
@@ -45,6 +65,11 @@ public class MainPresenter implements PopCallBack {
 
 	}
 
+	/**
+	 * 开启左转动画
+	 * 
+	 * @param fatieButton
+	 */
 	private void startLeftRoat(Button fatieButton) {
 		fatieButton.clearAnimation();
 		Animation operatingAnim = AnimationUtils.loadAnimation(mainActivity,
@@ -52,6 +77,11 @@ public class MainPresenter implements PopCallBack {
 		fatieButton.startAnimation(operatingAnim);
 	}
 
+	/**
+	 * 开启右转动画
+	 * 
+	 * @param fatieButton
+	 */
 	private void startRightRoat(Button fatieButton) {
 		fatieButton.clearAnimation();
 		Animation operatingAnim = AnimationUtils.loadAnimation(mainActivity,
@@ -60,11 +90,17 @@ public class MainPresenter implements PopCallBack {
 
 	}
 
+	/**
+	 * 点击发资源帖子回调
+	 */
 	@Override
 	public void fatieZiYuan() {
 		hidenPop();
 	}
 
+	/**
+	 * 点击发渠道信息回调
+	 */
 	@Override
 	public void fatieQuDao() {
 		hidenPop();
