@@ -150,8 +150,10 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 			intent.putExtra("user", user);
 			intent.setClass(this, PrefectUserInfoActivity.class);
 			AppManager.getAppManager().startActivity(this, intent);
+			finish();
 		} else {
 			AppManager.getAppManager().startActivity(this, MainActivity.class);
+			finish();
 		}
 	}
 

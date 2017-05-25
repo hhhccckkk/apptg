@@ -1,5 +1,9 @@
 package com.hck.apptg.model;
 
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -15,6 +19,7 @@ import com.hck.httpserver.HCKHttpResponseHandler;
 
 public class UserModel implements IUser {
 	private String ADDUSER = "addUserP";
+	private String PREFECTUSER = "prefectUser";
 	private Context mContext;
 
 	public UserModel(Context context) {
@@ -28,7 +33,7 @@ public class UserModel implements IUser {
 				Params.getUserLoginParams(user), new HCKHttpResponseHandler() {
 					public void onFailure(Throwable error, String content) {
 						if (callBack != null) {
-							callBack.onFailure(Constant.LOGIN_ERROR, "网络异常");
+							callBack.onFailure(Constant.ERROR, "网络异常");
 						}
 					};
 
@@ -51,5 +56,38 @@ public class UserModel implements IUser {
 
 				});
 
+	}
+
+	@Override
+	public void prefectUser(User user, Boolean isAlert,
+			final RequestCallBack<User> callBack) {
+		RequestUtil.requestPost(mContext, PREFECTUSER, true, isAlert,
+				Params.prefectUser(user), new HCKHttpResponseHandler() {
+					@Override
+					public void onFailure(Throwable error, String content) {
+						super.onFailure(error, content);
+						if (callBack != null) {
+							callBack.onFailure(Constant.ERROR, "");
+						}
+					}
+
+					@Override
+					public void onSuccess(String content, String requestUrl) {
+						super.onSuccess(content, requestUrl);
+						if (callBack != null) {
+							User user;
+							try {
+								user = JsonUtils.parse(content, User.class);
+								UserCacheData.setUser(user, content);
+								callBack.onSuccess(Constant.SUCCESS, user);
+							} catch (Exception e) {
+								e.printStackTrace();
+								LogUtil.D("prefectUser Exception: " + e);
+								callBack.onFailure(Constant.ERROR, "");
+							}
+
+						}
+					}
+				});
 	}
 }

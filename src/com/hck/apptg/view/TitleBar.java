@@ -14,9 +14,9 @@ import com.hck.apptg.R;
  */
 public class TitleBar extends LinearLayout {
 	private LinearLayout mLeftBackBtn; // 左边返回按钮
-	private TextView mCenterTextV; // 中间文本.
-	private TextView mLeftTextV; // 中间文本.
-	private TextView mRightTextV; // 中间文本.
+	private TextView mCenterTextV; 
+	private TextView mLeftTextV; 
+	private TextView mRightTextV;
 	private Context mContext;
 
 	public TitleBar(Context context) {
@@ -41,7 +41,6 @@ public class TitleBar extends LinearLayout {
 		mLeftBackBtn = (LinearLayout) findViewById(R.id.left_btn);
 		mCenterTextV = (TextView) findViewById(R.id.home_title_center);
 		mRightTextV = (TextView) findViewById(R.id.home_title_right);
-		mLeftTextV = (TextView) findViewById(R.id.home_title_left);
 
 	}
 

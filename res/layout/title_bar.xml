@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp" >
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="55dp"
         android:background="@color/title_color"
@@ -13,6 +13,7 @@
             android:id="@+id/left_btn"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:layout_gravity="left"
             android:background="@drawable/title_left_bt_selector"
             android:gravity="center_vertical"
             android:orientation="vertical" >
@@ -27,54 +28,27 @@
                 android:visibility="visible" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="45dp"
+        <TextView
+            android:id="@+id/home_title_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:maxHeight="30dp"
+            android:textColor="@color/whilt"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/home_title_left"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/home_title_bt_shap"
-                android:gravity="center"
-                android:maxHeight="30dp"
-                android:paddingBottom="3dp"
-                android:paddingTop="3dp"
-                android:textColor="@color/red_anniu_bt_color"
-                android:textSize="16sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/home_title_center"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:maxHeight="30dp"
-                android:paddingBottom="3dp"
-                android:paddingTop="3dp"
-                android:textColor="@color/whilt"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/home_title_right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:maxHeight="30dp"
-                android:paddingBottom="3dp"
-                android:paddingTop="3dp"
-                android:textColor="@color/whilt"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/home_title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:maxHeight="30dp"
+            android:textColor="@color/whilt"
+            android:textSize="16sp" />
+    </FrameLayout>
 
 </FrameLayout>

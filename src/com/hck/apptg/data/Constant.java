@@ -10,8 +10,8 @@ public class Constant {
 	
 	public static final String KEY_USER_DATA="key_user_data";
 	
-	public static final int LOGIN_OK = 1;
-	public static final int LOGIN_ERROR = 0;
+	public static final int SUCCESS = 1;
+	public static final int ERROR = 0;
 	public static final int LOGIN_FORBID = -1;
 	public static final String MAN = "男";
 	public static final int NAN = 1;
