@@ -159,9 +159,9 @@ public final class R {
         public static final int update_view_bg_shap=0x7f020056;
     }
     public static final class id {
-        public static final int RadioG=0x7f0a0001;
+        public static final int RadioG=0x7f0a0004;
         public static final int bar_text=0x7f0a0017;
-        public static final int bottom_view=0x7f0a0000;
+        public static final int bottom_view=0x7f0a0003;
         public static final int content=0x7f0a000d;
         public static final int content_view=0x7f0a000c;
         public static final int dialog_view=0x7f0a0011;
@@ -176,32 +176,33 @@ public final class R {
         public static final int left=0x7f0a000f;
         public static final int left_btn=0x7f0a0019;
         public static final int llButtonContainer=0x7f0a000e;
-        public static final int loding_img=0x7f0a0008;
-        public static final int loginBtn=0x7f0a000a;
-        public static final int mainFaTie=0x7f0a0004;
-        public static final int mainMessage=0x7f0a0005;
-        public static final int mainQuDao=0x7f0a0003;
-        public static final int mainUser=0x7f0a0006;
-        public static final int mainZiYuan=0x7f0a0002;
-        public static final int pb=0x7f0a0009;
+        public static final int loding_img=0x7f0a0000;
+        public static final int loginBtn=0x7f0a0002;
+        public static final int mainFaTie=0x7f0a0007;
+        public static final int mainMessage=0x7f0a0008;
+        public static final int mainQuDao=0x7f0a0006;
+        public static final int mainUser=0x7f0a0009;
+        public static final int mainZiYuan=0x7f0a0005;
+        public static final int pb=0x7f0a0001;
         public static final int right=0x7f0a0010;
         public static final int tipTextView=0x7f0a0013;
         public static final int title=0x7f0a000b;
         public static final int toast_text=0x7f0a001e;
         public static final int update_progress=0x7f0a0018;
-        public static final int view_remind=0x7f0a0007;
+        public static final int view_remind=0x7f0a000a;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int activity_splash=0x7f030001;
-        public static final int activity_ziyuan=0x7f030002;
-        public static final int custom_dialog_layout=0x7f030003;
-        public static final int loading_dialog=0x7f030004;
-        public static final int pop_fatie=0x7f030005;
-        public static final int progress_bar=0x7f030006;
-        public static final int softupdate_progress=0x7f030007;
-        public static final int title_bar=0x7f030008;
-        public static final int toast=0x7f030009;
+        public static final int activity_login=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int activity_prefect_user_info=0x7f030002;
+        public static final int activity_ziyuan=0x7f030003;
+        public static final int custom_dialog_layout=0x7f030004;
+        public static final int loading_dialog=0x7f030005;
+        public static final int pop_fatie=0x7f030006;
+        public static final int progress_bar=0x7f030007;
+        public static final int softupdate_progress=0x7f030008;
+        public static final int title_bar=0x7f030009;
+        public static final int toast=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f090000;

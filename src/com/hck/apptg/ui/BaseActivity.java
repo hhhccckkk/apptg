@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class BaseActivity extends FragmentActivity {
 				LinearLayout.LayoutParams.WRAP_CONTENT);
 		root.addView(paramView, LinearLayout.LayoutParams.MATCH_PARENT,
 				LinearLayout.LayoutParams.MATCH_PARENT);
+		setBackBtnListener();
 		super.setContentView(root);
 	}
 
@@ -64,6 +66,24 @@ public class BaseActivity extends FragmentActivity {
 		rightTextView = mTitleBar.getRightTextView();
 	}
 
+	private void setBackBtnListener() {
+		mTitleBar.getBack().setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				clickBackBtn();
+			}
+		});
+	}
+
+	public void clickBackBtn() {
+
+	}
+
+	public void initTitle(String title) {
+		mTitleBar.setCenterText(title);
+	}
+
 	public TitleBar getTitleBar() {
 		return mTitleBar;
 	}
@@ -71,6 +91,7 @@ public class BaseActivity extends FragmentActivity {
 	public String getStringData(int id) {
 		return getResources().getString(id);
 	}
+
 	public void alertExitD() {
 		CustomAlertDialog alertDialog = new CustomAlertDialog(this);
 		alertDialog.setCancelable(true);
@@ -97,6 +118,7 @@ public class BaseActivity extends FragmentActivity {
 		alertDialog.show();
 
 	}
+
 	private void haoPing() {
 		Uri uri = Uri.parse("market://details?id=" + getPackageName());
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -105,11 +127,14 @@ public class BaseActivity extends FragmentActivity {
 
 	}
 
-
 	private void exit() {
 		MyPreferences.saveString("user", null);
 		AppManager.getAppManager().AppExit();
 		finish();
+	}
+
+	public void hiddenBackBtn() {
+		mTitleBar.hiddenBackBtn();
 	}
 
 }

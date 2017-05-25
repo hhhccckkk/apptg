@@ -72,11 +72,8 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 		if (errorCode == 0) {
 			PushUtils.setBind(context, true);
 			PushUtils.setUC(context, userId, channelId);
-			MyToast.showCustomerToast("绑定成功");
 		}
-		else {
-			MyToast.showCustomerToast("绑定失败");
-		}
+		
 
 	}
 

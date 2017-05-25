@@ -3,6 +3,7 @@ package com.hck.apptg.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,6 +45,10 @@ public class TitleBar extends LinearLayout {
 
 	}
 
+	public void hiddenBackBtn() {
+		mLeftBackBtn.setVisibility(View.GONE);
+	}
+
 	public void setTitleLeftContent(String content) {
 		mCenterTextV.setText(content);
 	}
@@ -54,6 +59,10 @@ public class TitleBar extends LinearLayout {
 
 	public TextView getCenterTextView() {
 		return mCenterTextV;
+	}
+
+	public LinearLayout getBack() {
+		return mLeftBackBtn;
 	}
 
 	public TextView getRightTextView() {

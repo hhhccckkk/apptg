@@ -1,29 +1,31 @@
 package com.hck.apptg.ui;
 
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.tencent.qq.QQ;
 
-import com.baidu.location.BDLocation;
 import com.hck.apptg.R;
+import com.hck.apptg.bean.User;
+import com.hck.apptg.data.Constant;
+import com.hck.apptg.data.MyData;
+import com.hck.apptg.data.UserCacheData;
 import com.hck.apptg.downapp.UpdateUtil;
 import com.hck.apptg.downapp.UpdateUtil.UpdateAppCallBack;
+import com.hck.apptg.presenter.LoginPresenter;
 import com.hck.apptg.util.AppManager;
 import com.hck.apptg.util.LogUtil;
 import com.hck.apptg.util.MyToast;
+import com.hck.apptg.util.MyTools;
 
 public class LoginActivity extends Activity implements UpdateAppCallBack {
 	private static final int LOGIN_ERROR = 0;
@@ -31,8 +33,8 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 	private static final int LOGIN_CANCEL = 2;
 	private Button loginBtn; // 登录按钮
 	private View pBar; // 圈圈
-	private BDLocation bdLocation;
-	private String userName;
+	private LoginPresenter mPresenter;
+	private User mUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,9 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		ShareSDK.initSDK(this);
-		setContentView(R.layout.activity_splash);
+		mPresenter = new LoginPresenter(this);
+		mUser = UserCacheData.getUser();
+		setContentView(R.layout.activity_login);
 		initView();
 		setListener();
 		new UpdateUtil().isUpdate(this); // 监测是否有新版本
@@ -52,15 +56,20 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 		pBar = findViewById(R.id.pb);
 	}
 
+	/**
+	 * 去登录或者注册用户
+	 */
 	private void userLogin() {
 		Platform qq = ShareSDK.getPlatform(QQ.NAME);
-		// UserBean userBean = MyData.getData().getUserBean();
-		// if (qq != null && qq.isAuthValid() && userBean != null) { //
-		// QQ登录过没有过去，直接登录
-		// getUserData(userBean.getUid());
-		// } else {
-		loginBtn.setVisibility(View.VISIBLE);
-		// }
+		if (qq != null && qq.isAuthValid() && mUser != null) {
+			if (MyData.bdLocation != null) {
+				mUser.setJingdu(MyData.bdLocation.getLongitude());
+				mUser.setWeidu(MyData.bdLocation.getLatitude());
+			}
+			mPresenter.login(mUser, false);
+		} else {
+			loginBtn.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private void setListener() {
@@ -70,56 +79,9 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 			public void onClick(View arg0) {
 				loginBtn.setFocusable(false);
 				loginBtn.setVisibility(View.GONE);
-				loginQQ();
+				mPresenter.loginQQ(handler);
 			}
 		});
-	}
-
-	private void loginQQ() {
-		Platform qq = ShareSDK.getPlatform(QQ.NAME);
-		if (qq == null) {
-			MyToast.showCustomerToast("登录失败");
-			return;
-		}
-		if (qq != null && !qq.isAuthValid()) {
-			MyToast.showCustomerToast("正在启动qq...");
-		}
-		qq.SSOSetting(false);
-		qq.setPlatformActionListener(new PlatformActionListener() {
-
-			@Override
-			public void onError(Platform arg0, int arg1, Throwable arg2) {
-				Message message = new Message();
-				message.what = LOGIN_ERROR;
-				handler.sendMessage(message);
-				LogUtil.D("onError: " + arg1 + ": " + arg2);
-			}
-
-			@Override
-			public void onComplete(Platform arg0, int arg1,
-					HashMap<String, Object> arg2) {
-
-				Message message = new Message();
-				message.what = LOGIN_SUCCESS;
-
-				PlatformDb platDB = arg0.getDb();
-				handler.sendMessage(message);
-				LogUtil.D("onCompleteonCompleteonComplete: "
-						+ platDB.getUserName());
-
-			}
-
-			@Override
-			public void onCancel(Platform arg0, int arg1) {
-				Message message = new Message();
-				message.what = LOGIN_CANCEL;
-				handler.sendMessage(message);
-				LogUtil.D("onCancel: " + arg1 + ": ");
-
-			}
-		});
-		qq.showUser(null);
-
 	}
 
 	Handler handler = new Handler() {
@@ -134,13 +96,72 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 				loginBtn.setVisibility(View.VISIBLE);
 			} else if (msg.what == LOGIN_SUCCESS) {
 				loginBtn.setVisibility(View.GONE);
-				pBar.setVisibility(View.VISIBLE);
+				pBar.setVisibility(View.GONE);
 				loginBtn.setVisibility(View.VISIBLE);
-				MyToast.showCustomerToast("登录成功");
-				AppManager.getAppManager().startActivity(LoginActivity.this,
-						MainActivity.class);
+				PlatformDb platformDb = (PlatformDb) msg.obj;
+				registerUser(platformDb);
+
 			}
 
 		};
 	};
+
+	/**
+	 * qq登录成功后，注册用户
+	 * 
+	 * @param platformDb
+	 */
+	private void registerUser(PlatformDb platformDb) {
+		if (platformDb != null) {
+			mUser = new User();
+			String province = platformDb.get("province");
+			String city = platformDb.get("city");
+			String address = city;
+			if (!TextUtils.isEmpty(province)) {
+				address = province + city;
+			}
+			mUser.setAddress(address);
+			mUser.setQqid(platformDb.getUserId());
+			String xingbie = platformDb.get("gender").toString();
+			if (Constant.MAN.equals(xingbie)) {
+				mUser.setSex(Constant.NAN);
+			} else {
+				mUser.setSex(Constant.NV);
+			}
+			if (MyData.bdLocation != null) {
+				mUser.setJingdu(MyData.bdLocation.getLongitude());
+				mUser.setWeidu(MyData.bdLocation.getLatitude());
+			}
+			mUser.setTouxiang(platformDb.get("figureurl_qq_2").toString());
+			mUser.setImei(MyTools.getImei(this));
+			mUser.setPhonetype(MyTools.getModel());
+			mPresenter.login(mUser, true);
+		} else {
+			LogUtil.D(" registerUser PlatformDb is null");
+		}
+
+	}
+
+	/**
+	 * 登录成功
+	 * 
+	 * @param user
+	 */
+	public void loginSuccess(User user) {
+		if (user == null) {
+			loginError();
+		} else if (TextUtils.isEmpty(user.getPhone())) { // 说明用户还未完善信息
+			Intent intent = new Intent();
+			intent.putExtra("user", user);
+			intent.setClass(this, PrefectUserInfoActivity.class);
+			AppManager.getAppManager().startActivity(this, intent);
+		} else {
+			AppManager.getAppManager().startActivity(this, MainActivity.class);
+		}
+	}
+
+	public void loginError() {
+		MyToast.showCustomerToast("网络异常 登录失败");
+		loginBtn.setVisibility(View.VISIBLE);
+	}
 }

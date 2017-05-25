@@ -184,10 +184,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MainActivity" />
-       <activity android:name=".ui.ZiYuanActivity" />
-       <activity android:name=".ui.QuDaoActivity" />
-       <activity android:name=".ui.MessageActivity" />
-       <activity android:name=".ui.UserActivity" />
+        <activity android:name=".ui.ZiYuanActivity" />
+        <activity android:name=".ui.QuDaoActivity" />
+        <activity android:name=".ui.MessageActivity" />
+        <activity android:name=".ui.UserActivity" />
+        <activity android:name=".ui.PrefectUserInfoActivity" />
     </application>
 
 </manifest>

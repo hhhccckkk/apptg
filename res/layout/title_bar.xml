@@ -24,7 +24,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:src="@drawable/back_img"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </LinearLayout>
 
         <LinearLayout
