@@ -114,15 +114,8 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 	private void registerUser(PlatformDb platformDb) {
 		if (platformDb != null) {
 			mUser = new User();
-			String province = platformDb.get("province");
-			String city = platformDb.get("city");
-			String address = city;
-			if (!TextUtils.isEmpty(province)) {
-				address = province + city;
-			}
-			mUser.setAddress(address);
 			mUser.setQqid(platformDb.getUserId());
-			String xingbie = platformDb.get("gender").toString();
+			String xingbie = platformDb.getUserGender();
 			if (Constant.MAN.equals(xingbie)) {
 				mUser.setSex(Constant.NAN);
 			} else {
@@ -132,7 +125,8 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 				mUser.setJingdu(MyData.bdLocation.getLongitude());
 				mUser.setWeidu(MyData.bdLocation.getLatitude());
 			}
-			mUser.setTouxiang(platformDb.get("figureurl_qq_2").toString());
+			String touxiang=platformDb.getUserIcon();
+			mUser.setTouxiang(touxiang);
 			mUser.setImei(MyTools.getImei(this));
 			mUser.setPhonetype(MyTools.getModel());
 			mUser.setNicheng(platformDb.getUserName());
