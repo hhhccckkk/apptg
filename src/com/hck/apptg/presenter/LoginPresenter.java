@@ -1,7 +1,12 @@
 package com.hck.apptg.presenter;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
@@ -12,15 +17,8 @@ import com.hck.apptg.bean.User;
 import com.hck.apptg.interfaces.RequestCallBack;
 import com.hck.apptg.model.UserModel;
 import com.hck.apptg.ui.LoginActivity;
-import com.hck.apptg.ui.MainActivity;
-import com.hck.apptg.util.AppManager;
 import com.hck.apptg.util.LogUtil;
 import com.hck.apptg.util.MyToast;
-
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
 
 public class LoginPresenter {
 	private static final int LOGIN_ERROR = 0;
@@ -81,6 +79,13 @@ public class LoginPresenter {
 			@Override
 			public void onComplete(Platform arg0, int arg1,
 					HashMap<String, Object> arg2) {
+				 Iterator ite =arg2.entrySet().iterator();
+				    while (ite.hasNext()) {
+				        Map.Entry entry = (Map.Entry)ite.next();
+				        Object key = entry.getKey();
+				        Object value = entry.getValue();
+				        LogUtil.D("key: "+key+"： "+value);
+				    }
 
 				Message message = new Message();
 				message.what = LOGIN_SUCCESS;

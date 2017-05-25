@@ -135,6 +135,7 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 			mUser.setTouxiang(platformDb.get("figureurl_qq_2").toString());
 			mUser.setImei(MyTools.getImei(this));
 			mUser.setPhonetype(MyTools.getModel());
+			mUser.setNicheng(platformDb.getUserName());
 			mPresenter.login(mUser, true);
 		} else {
 			LogUtil.D(" registerUser PlatformDb is null");
