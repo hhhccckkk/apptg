@@ -19,7 +19,7 @@ import com.hck.httpserver.HCKHttpResponseHandler;
 
 public class UserModel implements IUser {
 	private String ADDUSER = "addUserP";
-	private String PREFECTUSER = "prefectUser";
+	private String PREFECTUSER = "prefectUserP";
 	private Context mContext;
 
 	public UserModel(Context context) {
@@ -61,6 +61,7 @@ public class UserModel implements IUser {
 	@Override
 	public void prefectUser(User user, Boolean isAlert,
 			final RequestCallBack<User> callBack) {
+		LogUtil.D("user data: "+user.toString());
 		RequestUtil.requestPost(mContext, PREFECTUSER, true, isAlert,
 				Params.prefectUser(user), new HCKHttpResponseHandler() {
 					@Override

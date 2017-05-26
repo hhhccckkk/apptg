@@ -32,7 +32,7 @@ public class Params {
 		params.put("weixin", user.getWeixin());
 		params.put("gongsi", user.getGongsi());
 		params.put("jieshao", user.getJieshao());
-		params.put("address", user.getAddress());
+		params.put("phone", user.getPhone());
 		return params;
 	}
 }

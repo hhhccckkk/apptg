@@ -318,4 +318,20 @@ public class User implements java.io.Serializable {
 		this.usertype = usertype;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", password=" + password
+				+ ", sex=" + sex + ", nicheng=" + nicheng + ", touxiang="
+				+ touxiang + ", pushid=" + pushid + ", qq=" + qq + ", weixin="
+				+ weixin + ", phone=" + phone + ", phonetype=" + phonetype
+				+ ", address=" + address + ", imei=" + imei + ", jingdu="
+				+ jingdu + ", weidu=" + weidu + ", isok=" + isok + ", isvip="
+				+ isvip + ", logintime=" + logintime + ", registertime="
+				+ registertime + ", jifeng=" + jifeng + ", jinbi=" + jinbi
+				+ ", gongsi=" + gongsi + ", jieshao=" + jieshao + ", fensi="
+				+ fensi + ", fatienum=" + fatienum + ", qqid=" + qqid
+				+ ", usertype=" + usertype + "]";
+	}
+	
+
 }

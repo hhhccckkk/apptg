@@ -73,12 +73,14 @@ public class RequestUtil {
 
 	public static void get(String method, RequestParams params,
 			HCKHttpResponseHandler handler, boolean isNeedUserId) {
+		LogUtil.D("需要id吗? "+isNeedUserId);
 		if (params == null) {
 			client.get(Constant.MAINHOST + method, handler);
 		} else {
 			User user = UserCacheData.getUser();
 			if (isNeedUserId) {
-				params.put("uid", user.getId() + "");
+				params.put("id", user.getId() + "");
+				LogUtil.D("userid : "+ user.getId());
 			}
 			client.post(Constant.MAINHOST + method, params, handler);
 		}
