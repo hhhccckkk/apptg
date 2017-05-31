@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/whilt"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="标题" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/tiezi_title"
+                style="@style/input_EditText"
+                android:layout_width="fill_parent"
+                android:background="@drawable/mm_ed_bg"
+                android:hint="请输入标题" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="app名字" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/tiezi_appName"
+                style="@style/input_EditText"
+                android:layout_width="fill_parent"
+                android:background="@drawable/mm_ed_bg"
+                android:hint="请输入app名字" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="推广价格" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/tiezi_appjiage"
+                style="@style/input_EditText"
+                android:layout_width="fill_parent"
+                android:background="@drawable/mm_ed_bg"
+                android:hint="请输入推广价格/个" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="操作系统" />
+
+            <RadioGroup
+                android:id="@+id/tiezi_radioGroupXT"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/tiezi_az"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:checked="true"
+                    android:text="安卓 "
+                    android:textColor="@color/text_color666"
+                    android:textSize="14sp" />
+
+                <RadioButton
+                    android:id="@+id/tiezi_ios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="15dp"
+                    android:text="ios  "
+                    android:textColor="@color/text_color666"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/tiezi_pc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="15dp"
+                    android:text="PC"
+                    android:textColor="@color/text_color666"
+                    android:textSize="16sp" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="结算周期" />
+
+            <RadioGroup
+                android:id="@+id/tiezi_zhouqi"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/tiezi_rijie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:checked="true"
+                    android:text="日结"
+                    android:textColor="@color/text_color666"
+                    android:textSize="14sp" />
+
+                <RadioButton
+                    android:id="@+id/tiezi_zhoujie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="15dp"
+                    android:text="周结"
+                    android:textColor="@color/text_color666"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/tiezi_yuejie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="15dp"
+                    android:text="月结"
+                    android:textColor="@color/text_color666"
+                    android:textSize="16sp" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/line_color" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="详细信息" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/tiezi_content"
+                style="@style/input_EditText"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/mm_ed_bg"
+                android:gravity="top"
+                android:hint="请输入详细信息"
+                android:padding="5dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="联系电话" />
+
+
+
+            <EditText
+                android:id="@+id/tiezi_phone"
+                style="@style/input_EditText"
+                android:layout_width="fill_parent"
+                android:background="@drawable/mm_ed_bg"
+                android:hint="请输入您的电话号码" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="QQ号码" />
+
+            <EditText
+                android:id="@+id/tiezi_qq"
+                style="@style/input_EditText"
+                android:layout_width="fill_parent"
+                android:background="@drawable/mm_ed_bg"
+                android:hint="请输入您的QQ号码" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="微信号码" />
+
+            <EditText
+                android:id="@+id/tiezi_weixin"
+                style="@style/input_EditText"
+                android:layout_width="fill_parent"
+                android:background="@drawable/mm_ed_bg"
+                android:hint="请输您的系微信号码" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/login_btn_selector"
+            android:onClick="submit"
+            android:text="提交"
+            android:textColor="@color/whilt"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</ScrollView>

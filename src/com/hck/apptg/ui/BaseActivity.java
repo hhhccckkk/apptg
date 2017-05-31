@@ -78,7 +78,7 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	public void clickBackBtn() {
-
+		finish();
 	}
 
 	public void initTitle(String title) {
@@ -137,9 +137,13 @@ public class BaseActivity extends FragmentActivity {
 	public void hiddenBackBtn() {
 		mTitleBar.hiddenBackBtn();
 	}
-	
-	public String getText(EditText editText){
+
+	public String getText(EditText editText) {
 		return editText.getText().toString();
+	}
+
+	protected <T extends View> T getViewById(int id) {
+		return (T) findViewById(id);
 	}
 
 }

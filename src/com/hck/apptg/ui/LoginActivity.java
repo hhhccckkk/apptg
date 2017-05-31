@@ -66,9 +66,11 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 				mUser.setJingdu(MyData.bdLocation.getLongitude());
 				mUser.setWeidu(MyData.bdLocation.getLatitude());
 			}
+			LogUtil.D("uuu: "+mUser.toString());
 			mPresenter.login(mUser, false);
 		} else {
 			loginBtn.setVisibility(View.VISIBLE);
+			pBar.setVisibility(View.GONE);
 		}
 	}
 
@@ -125,7 +127,7 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 				mUser.setJingdu(MyData.bdLocation.getLongitude());
 				mUser.setWeidu(MyData.bdLocation.getLatitude());
 			}
-			String touxiang=platformDb.getUserIcon();
+			String touxiang = platformDb.getUserIcon();
 			mUser.setTouxiang(touxiang);
 			mUser.setImei(MyTools.getImei(this));
 			mUser.setPhonetype(MyTools.getModel());

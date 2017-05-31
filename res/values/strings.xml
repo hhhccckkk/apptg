@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="release_to_refresh">松开可刷新…</string>
+    <string name="is_refreshing">正在刷新中…</string>
+    <string name="load_more">加载更多</string>
+    <string name="is_loading">努力加载中...</string>
     <string name="app_name">APP推广平台</string>
     <string name="main_ziyuan">资源</string>
     <string name="main_qudao">渠道</string>

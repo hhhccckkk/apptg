@@ -1,11 +1,15 @@
 package com.hck.apptg.presenter;
 
+import android.content.Intent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.hck.apptg.R;
+import com.hck.apptg.data.Constant;
+import com.hck.apptg.ui.FaTieActivity;
 import com.hck.apptg.ui.MainActivity;
+import com.hck.apptg.util.AppManager;
 import com.hck.apptg.view.PopupWindowView;
 import com.hck.apptg.view.PopupWindowView.PopCallBack;
 
@@ -41,7 +45,7 @@ public class MainPresenter implements PopCallBack {
 	/**
 	 * 影藏弹窗
 	 */
-	private void hidenPop() {
+	public void hidenPop() {
 		if (pWindowView != null && pWindowView.popupWindow != null) {
 			pWindowView.popupWindow.dismiss();
 			pWindowView.popupWindow = null;
@@ -96,6 +100,10 @@ public class MainPresenter implements PopCallBack {
 	@Override
 	public void fatieZiYuan() {
 		hidenPop();
+		Intent intent = new Intent();
+		intent.putExtra("type", Constant.TIEZI_TYPE_ZIYUAN);
+		intent.setClass(mainActivity, FaTieActivity.class);
+		AppManager.getAppManager().startActivity(mainActivity, intent);
 	}
 
 	/**
@@ -104,5 +112,8 @@ public class MainPresenter implements PopCallBack {
 	@Override
 	public void fatieQuDao() {
 		hidenPop();
+		Intent intent = new Intent();
+		intent.putExtra("type", Constant.TIEZI_TYPE_ZIYUAN);
+		AppManager.getAppManager().startActivity(mainActivity, intent);
 	}
 }

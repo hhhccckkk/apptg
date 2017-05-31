@@ -1,5 +1,8 @@
 package com.hck.apptg.util;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.content.Context;
 
 import com.hck.apptg.bean.User;
@@ -9,6 +12,7 @@ import com.hck.apptg.data.UserCacheData;
 import com.hck.apptg.view.Pdialog;
 import com.hck.httpserver.HCKHttpClient;
 import com.hck.httpserver.HCKHttpResponseHandler;
+import com.hck.httpserver.JsonHttpResponseHandler;
 import com.hck.httpserver.RequestParams;
 
 public class RequestUtil {
@@ -22,12 +26,14 @@ public class RequestUtil {
 
 	private static void post(String method, Boolean isNeedUserId,
 			RequestParams params, HCKHttpResponseHandler handler) {
+		LogUtil.D("需要id吗 post? " + isNeedUserId);
 		if (params == null) {
 			client.post(Constant.MAINHOST + method, handler);
 		} else {
 			User user = UserCacheData.getUser();
 			if (isNeedUserId) {
 				params.put("id", user.getId() + "");
+				LogUtil.D("idid: " + user.getId());
 			}
 			client.post(Constant.MAINHOST + method, params, handler);
 		}
@@ -36,6 +42,7 @@ public class RequestUtil {
 	public static void requestPost(final Context context, String method,
 			Boolean isNeedUserId, final Boolean isAlert, RequestParams params,
 			final HCKHttpResponseHandler handler) {
+
 		post(method, isNeedUserId, params, new HCKHttpResponseHandler() {
 			@Override
 			public void onStart(String url) {
@@ -68,28 +75,75 @@ public class RequestUtil {
 				Pdialog.hiddenDialog();
 				LogUtil.D("RequestUtil requestPost onFinish: " + url);
 			}
+
+		});
+	}
+
+	public static void requestPost(final Context context, String method,
+			Boolean isNeedUserId, final Boolean isAlert, RequestParams params,
+			final JsonHttpResponseHandler handler) {
+
+		post(method, isNeedUserId, params, new JsonHttpResponseHandler() {
+			@Override
+			public void onStart(String url) {
+				handler.onStart(url);
+				super.onStart(url);
+				if (isAlert) {
+					Pdialog.showDialog(context, "处理中...", false);
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable error, String content) {
+				super.onFailure(error, content);
+				handler.onFailure(error, content);
+				LogUtil.D("RequestUtil requestPost onFailure: " + error + ": "
+						+ content);
+			}
+
+			@Override
+			public void onSuccess(String content, String requestUrl) {
+				super.onSuccess(content, requestUrl);
+				handler.onSuccess(content, requestUrl);
+				LogUtil.D("RequestUtil requestPost onSuccess: " + content);
+			}
+
+			@Override
+			public void onFinish(String url) {
+				super.onFinish(url);
+				handler.onFinish(url);
+				Pdialog.hiddenDialog();
+				LogUtil.D("RequestUtil requestPost onFinish: " + url);
+			}
+
+			@Override
+			public void onSuccess(int statusCode, JSONObject response) {
+				super.onSuccess(statusCode, response);
+				handler.onSuccess(statusCode, response);
+			}
+
 		});
 	}
 
 	public static void get(String method, RequestParams params,
 			HCKHttpResponseHandler handler, boolean isNeedUserId) {
-		LogUtil.D("需要id吗? "+isNeedUserId);
+		LogUtil.D("需要id吗? " + isNeedUserId);
 		if (params == null) {
 			client.get(Constant.MAINHOST + method, handler);
 		} else {
 			User user = UserCacheData.getUser();
 			if (isNeedUserId) {
 				params.put("id", user.getId() + "");
-				LogUtil.D("userid : "+ user.getId());
+				LogUtil.D("userid : " + user.getId());
 			}
 			client.post(Constant.MAINHOST + method, params, handler);
 		}
 	}
 
 	public static void requestGet(final Context context, String method,
-			RequestParams params, final HCKHttpResponseHandler handler,
+			RequestParams params, final JsonHttpResponseHandler handler,
 			boolean isNeedUserId, final Boolean isAlert) {
-		get(method, params, new HCKHttpResponseHandler() {
+		get(method, params, new JsonHttpResponseHandler() {
 			@Override
 			public void onStart(String url) {
 				super.onStart(url);
@@ -115,6 +169,23 @@ public class RequestUtil {
 				Pdialog.hiddenDialog();
 				LogUtil.D("RequestUtil requestGet onFinish: " + url);
 			};
+
+			@Override
+			public void onSuccess(int statusCode, JSONObject response) {
+				super.onSuccess(statusCode, response);
+				handler.onSuccess(statusCode, response);
+				LogUtil.D("RequestUtil requestGet onSuccess JSONObject: "
+						+ response.toString());
+			}
+
+			@Override
+			public void onSuccess(int statusCode, JSONArray response) {
+				super.onSuccess(statusCode, response);
+				handler.onSuccess(statusCode, response);
+				LogUtil.D("RequestUtil requestGet onSuccess JSONArray: "
+						+ response.toString());
+			}
+
 		}, isNeedUserId);
 	}
 

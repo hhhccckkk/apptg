@@ -42,10 +42,11 @@ public class UserModel implements IUser {
 						try {
 							object = new JSONObject(content);
 							int code = object.getInt("code");
+							String userData = object.getString("user");
 							if (callBack != null) {
-								User user = JsonUtils
-										.parse(content, User.class);
-								UserCacheData.setUser(user, content);
+								User user = JsonUtils.parse(userData,
+										User.class);
+								UserCacheData.setUser(user, userData);
 								callBack.onSuccess(code, user);
 							}
 						} catch (Exception e) {
@@ -61,9 +62,9 @@ public class UserModel implements IUser {
 	@Override
 	public void prefectUser(User user, Boolean isAlert,
 			final RequestCallBack<User> callBack) {
-		LogUtil.D("user data: "+user.toString());
+		LogUtil.D("user data: " + user.toString());
 		RequestUtil.requestPost(mContext, PREFECTUSER, true, isAlert,
-				Params.prefectUser(user), new HCKHttpResponseHandler() {
+				Params.getPrefectUser(user), new HCKHttpResponseHandler() {
 					@Override
 					public void onFailure(Throwable error, String content) {
 						super.onFailure(error, content);
@@ -75,19 +76,25 @@ public class UserModel implements IUser {
 					@Override
 					public void onSuccess(String content, String requestUrl) {
 						super.onSuccess(content, requestUrl);
-						if (callBack != null) {
-							User user;
-							try {
-								user = JsonUtils.parse(content, User.class);
-								UserCacheData.setUser(user, content);
-								callBack.onSuccess(Constant.SUCCESS, user);
-							} catch (Exception e) {
-								e.printStackTrace();
-								LogUtil.D("prefectUser Exception: " + e);
-								callBack.onFailure(Constant.ERROR, "");
-							}
+						try {
+							if (callBack != null) {
+								JSONObject object = new JSONObject(content);
+								User user;
+								String userData = object.getString("user");
+								try {
+									user = JsonUtils.parse(userData, User.class);
+									UserCacheData.setUser(user, userData);
+									callBack.onSuccess(Constant.SUCCESS, user);
+								} catch (Exception e) {
+									e.printStackTrace();
+									LogUtil.D("prefectUser Exception: " + e);
+									callBack.onFailure(Constant.ERROR, "");
+								}
 
+							}
+						} catch (Exception e) {
 						}
+
 					}
 				});
 	}

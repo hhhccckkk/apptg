@@ -1,15 +1,17 @@
 package com.hck.apptg.ui;
 
+import android.R.integer;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.hck.apptg.R;
 import com.hck.apptg.bean.User;
 import com.hck.apptg.presenter.PrefectUserInfoPresenter;
 import com.hck.apptg.util.AppManager;
-import com.hck.apptg.util.MyToast;
+import com.hck.apptg.util.LogUtil;
 
 public class PrefectUserInfoActivity extends BaseActivity {
 	private User mUser;
@@ -17,7 +19,8 @@ public class PrefectUserInfoActivity extends BaseActivity {
 			mGongSiEditText;
 	private EditText mAddressEditText, mJieShaoEditText;
 	private PrefectUserInfoPresenter mpPresenter;
-
+	private RadioGroup mRadioGroup;
+    private int type=1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,6 +30,7 @@ public class PrefectUserInfoActivity extends BaseActivity {
 		initView();
 		mpPresenter = new PrefectUserInfoPresenter(this);
 		hiddenBackBtn();
+		setListener();
 
 	}
 
@@ -37,6 +41,25 @@ public class PrefectUserInfoActivity extends BaseActivity {
 		mGongSiEditText = (EditText) findViewById(R.id.gongsi);
 		mAddressEditText = (EditText) findViewById(R.id.dizhi);
 		mJieShaoEditText = (EditText) findViewById(R.id.jieshao);
+		mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+	}
+
+	private void setListener() {
+		mRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId==R.id.qudaoRB) {
+					type=1;
+				}
+                else if (checkedId==R.id.ziYuanRB) {
+                	type=2;
+				}
+                else {
+                	type=3;
+				}
+			}
+		});
 	}
 
 	@Override
@@ -57,6 +80,7 @@ public class PrefectUserInfoActivity extends BaseActivity {
 		mUser.setWeixin(weixin);
 		mUser.setGongsi(gongsi);
 		mUser.setJieshao(jieshao);
+		mUser.setUsertype(type);
 		if (mpPresenter.isCheckOk(mUser)) {
 			mpPresenter.prefectUser(mUser);
 		}

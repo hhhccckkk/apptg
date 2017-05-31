@@ -105,15 +105,17 @@ public class MainActivity extends TabActivity implements
 	}
 
 	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) { 
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		switch (checkedId) {
-		case R.id.mainZiYuan: 
-			tabHost.setCurrentTab(0); 
+		case R.id.mainZiYuan:
+			tabHost.setCurrentTab(0);
 			oldCheckId = R.id.mainZiYuan;
+			mMainPresenter.hidenPop();
 			break;
 		case R.id.mainQuDao:
 			tabHost.setCurrentTab(1);
 			oldCheckId = R.id.mainQuDao;
+			mMainPresenter.hidenPop();
 			break;
 		case R.id.mainFaTie:
 			fatieButton.setChecked(false);
@@ -127,10 +129,12 @@ public class MainActivity extends TabActivity implements
 			if (badgeView != null) {
 				badgeView.hide();
 			}
+			mMainPresenter.hidenPop();
 			break;
 		case R.id.mainUser:
 			tabHost.setCurrentTab(4);
 			oldCheckId = R.id.mainUser;
+			mMainPresenter.hidenPop();
 			break;
 		}
 

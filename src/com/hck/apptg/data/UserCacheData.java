@@ -16,7 +16,6 @@ public class UserCacheData {
 			return mUser;
 		}
 		String userData = MyPreferences.getString(Constant.KEY_USER_DATA, null);
-		LogUtil.D("UserCacheData userData: "+userData);
 		if (TextUtils.isEmpty(userData)) {
 			return null;
 		}
