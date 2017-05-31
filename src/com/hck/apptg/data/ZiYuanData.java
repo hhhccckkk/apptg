@@ -1,5 +1,7 @@
 package com.hck.apptg.data;
 
+import java.util.List;
+
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -11,15 +13,17 @@ import com.hck.apptg.bean.ZiYuanBean;
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class ZiYuanData {
 	@JsonProperty("ziyuanInfo")
-	private ZiYuanBean mZiYuanData;
+	private List<ZiYuanBean> mZiYuanDatas;
 
-	public ZiYuanBean getmZiYuanData() {
-		return mZiYuanData;
+	public List<ZiYuanBean> getmZiYuanDatas() {
+		return mZiYuanDatas;
 	}
 
-	public void setmZiYuanData(ZiYuanBean mZiYuanData) {
-		this.mZiYuanData = mZiYuanData;
+	public void setmZiYuanDatas(List<ZiYuanBean> mZiYuanDatas) {
+		this.mZiYuanDatas = mZiYuanDatas;
 	}
+
+	
 	
 	
 
