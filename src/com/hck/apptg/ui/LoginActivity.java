@@ -43,6 +43,7 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		ShareSDK.initSDK(this);
 		mPresenter = new LoginPresenter(this);
+		mPresenter.loadMsg();
 		mUser = UserCacheData.getUser();
 		setContentView(R.layout.activity_login);
 		initView();
@@ -66,7 +67,6 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 				mUser.setJingdu(MyData.bdLocation.getLongitude());
 				mUser.setWeidu(MyData.bdLocation.getLatitude());
 			}
-			LogUtil.D("uuu: "+mUser.toString());
 			mPresenter.login(mUser, false);
 		} else {
 			loginBtn.setVisibility(View.VISIBLE);
@@ -132,6 +132,7 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 			mUser.setImei(MyTools.getImei(this));
 			mUser.setPhonetype(MyTools.getModel());
 			mUser.setNicheng(platformDb.getUserName());
+			mUser.setName(Constant.APP_NAME);
 			mPresenter.login(mUser, true);
 		} else {
 			LogUtil.D(" registerUser PlatformDb is null");
@@ -163,4 +164,8 @@ public class LoginActivity extends Activity implements UpdateAppCallBack {
 		MyToast.showCustomerToast("网络异常 登录失败");
 		loginBtn.setVisibility(View.VISIBLE);
 	}
+	
+	
+	
+	
 }

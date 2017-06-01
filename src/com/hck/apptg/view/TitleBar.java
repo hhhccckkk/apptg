@@ -17,17 +17,14 @@ public class TitleBar extends LinearLayout {
 	private TextView mCenterTextV; 
 	private TextView mLeftTextV; 
 	private TextView mRightTextV;
-	private Context mContext;
 
 	public TitleBar(Context context) {
 		super(context);
-		mContext = context;
 		init(context);
 	}
 
 	public TitleBar(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		mContext = context;
 		init(context);
 	}
 
@@ -41,6 +38,7 @@ public class TitleBar extends LinearLayout {
 		mLeftBackBtn = (LinearLayout) findViewById(R.id.left_btn);
 		mCenterTextV = (TextView) findViewById(R.id.home_title_center);
 		mRightTextV = (TextView) findViewById(R.id.home_title_right);
+		mLeftTextV=(TextView) findViewById(R.id.home_title_left);
 
 	}
 

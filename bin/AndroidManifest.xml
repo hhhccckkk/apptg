@@ -55,7 +55,14 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
     <!-- 百度push权限结束 -->
+<permission android:name="com.hck.apptg.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.hck.apptg.permission.C2D_MESSAGE" />
+     <permission
+        android:name="com.hck.apptg.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
 
+    <uses-permission android:name="com.hck.apptg.permission.MIPUSH_RECEIVE" />
     <application
         android:name="com.hck.apptg.ui.MyApplication"
         android:allowBackup="true"
@@ -173,6 +180,47 @@
             </intent-filter>
         </activity>
         <!-- share分享结束 -->
+
+
+        <!-- 环信开始 -->
+        <!-- 环信 -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="hhhccckkk#apptg" />
+        <!-- 声明sdk所需的service SDK核心功能 -->
+        <!-- 声明sdk所需的service -->
+         <!-- 开机自启动服务 -->
+        <receiver android:name="com.easemob.chat.StartServiceReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+         <!-- 使用时把com.easemob.chatuidemo替换成自己的包名 -->
+    
+        <service
+            android:name="com.easemob.chat.EMChatService"
+            android:exported="true" />
+        <!-- 声明sdk所需的receiver -->
+        <receiver android:name="com.easemob.chat.EMMonitorReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.easemob.easeui.ui.EaseShowBigImageActivity"
+            android:screenOrientation="portrait" />
+        <!-- 环信结束 -->
 
         <activity
             android:name=".ui.LoginActivity"

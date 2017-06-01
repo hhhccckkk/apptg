@@ -7,4 +7,6 @@ public interface IUser {
 	void login(User user, Boolean isAlert, RequestCallBack<User> callBack);
 
 	void prefectUser(User user, Boolean isAlert, RequestCallBack<User> callBack);
+	
+	void updateUserPushId(User user,boolean isAlert,RequestCallBack<User> callBack);
 }

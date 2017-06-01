@@ -10,5 +10,10 @@
     <string name="main_qudao">渠道</string>
     <string name="main_message">信息</string>
     <string name="main_user">用户</string>
+    
+     <!-- 消息 -->
+    <string name="xiaoxi_liaotian">聊天</string>
+    <string name="xiaoxi_huifu">回复</string>
+    <string name="xiaoxi_xitong">通知</string>
 
 </resources>

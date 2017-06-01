@@ -20,6 +20,7 @@ import com.hck.httpserver.HCKHttpResponseHandler;
 public class UserModel implements IUser {
 	private String ADDUSER = "addUserP";
 	private String PREFECTUSER = "prefectUserP";
+	private String UPDATEUSERPUSHID = "updateUserPushidP";
 	private Context mContext;
 
 	public UserModel(Context context) {
@@ -62,7 +63,6 @@ public class UserModel implements IUser {
 	@Override
 	public void prefectUser(User user, Boolean isAlert,
 			final RequestCallBack<User> callBack) {
-		LogUtil.D("user data: " + user.toString());
 		RequestUtil.requestPost(mContext, PREFECTUSER, true, isAlert,
 				Params.getPrefectUser(user), new HCKHttpResponseHandler() {
 					@Override
@@ -82,7 +82,8 @@ public class UserModel implements IUser {
 								User user;
 								String userData = object.getString("user");
 								try {
-									user = JsonUtils.parse(userData, User.class);
+									user = JsonUtils
+											.parse(userData, User.class);
 									UserCacheData.setUser(user, userData);
 									callBack.onSuccess(Constant.SUCCESS, user);
 								} catch (Exception e) {
@@ -97,5 +98,26 @@ public class UserModel implements IUser {
 
 					}
 				});
+	}
+
+	@Override
+	public void updateUserPushId(User user, boolean isAlert,
+			RequestCallBack<User> callBack) {
+		RequestUtil.requestPost(mContext, UPDATEUSERPUSHID, true, false,
+				Params.getUserPushParams(user), new HCKHttpResponseHandler() {
+					@Override
+					public void onFailure(Throwable error, String content) {
+						super.onFailure(error, content);
+						LogUtil.D("onFailure: " + error + content);
+
+					}
+
+					@Override
+					public void onSuccess(String content, String requestUrl) {
+						super.onSuccess(content, requestUrl);
+						LogUtil.D("onSuccess: " + content);
+					}
+				});
+
 	}
 }

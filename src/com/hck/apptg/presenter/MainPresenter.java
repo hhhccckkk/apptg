@@ -5,11 +5,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import com.baidu.android.pushservice.ADPushManager;
+import com.baidu.android.pushservice.PushConstants;
 import com.hck.apptg.R;
 import com.hck.apptg.data.Constant;
 import com.hck.apptg.ui.FaTieActivity;
 import com.hck.apptg.ui.MainActivity;
 import com.hck.apptg.util.AppManager;
+import com.hck.apptg.util.PushUtils;
 import com.hck.apptg.view.PopupWindowView;
 import com.hck.apptg.view.PopupWindowView.PopCallBack;
 
@@ -25,6 +28,13 @@ public class MainPresenter implements PopCallBack {
 
 	public MainPresenter(MainActivity mainActivity) {
 		this.mainActivity = mainActivity;
+	}
+
+	public void startPush() {
+	//	if (!PushUtils.hasBind(mainActivity.getApplicationContext())) {
+			ADPushManager.startWorkForAD(mainActivity.getApplicationContext(),
+					PushConstants.LOGIN_TYPE_API_KEY, Constant.PUSH_KEY);
+	//	}
 	}
 
 	/**

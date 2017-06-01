@@ -5,12 +5,23 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
-import com.hck.apptg.util.MyToast;
+import com.hck.apptg.R;
+import com.hck.apptg.bean.User;
+import com.hck.apptg.data.UserCacheData;
+import com.hck.apptg.model.UserModel;
+import com.hck.apptg.ui.LoginActivity;
+import com.hck.apptg.util.LogUtil;
+import com.hck.apptg.util.MyPreferences;
 import com.hck.apptg.util.PushUtils;
 
 /*
@@ -42,6 +53,69 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 			.getSimpleName();
 
 	/**
+	 * 在手机顶部显示通知.
+	 * 
+	 * @param context
+	 * @param tickerText
+	 * @param titleText
+	 * @param contentText
+	 * @param targetIntent
+	 * @param type
+	 */
+	public void sendNotification(Context context, String tickerText,
+			String titleText, String contentText, Intent targetIntent, int type) {
+		try {
+			clearAllNotification(context);
+			NotificationManager manager = (NotificationManager) context
+					.getSystemService(Context.NOTIFICATION_SERVICE);
+			NotificationCompat.Builder builder = new NotificationCompat.Builder(
+					context);
+			PendingIntent pendingIntent = PendingIntent.getActivity(context,
+					type, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			Notification notification = builder
+					.setSmallIcon(R.drawable.ic_launcher)
+					.setContentText(contentText)
+					.setTicker(tickerText)
+					.setContentTitle(titleText)
+					.setContentIntent(pendingIntent)
+					.setAutoCancel(true)
+					.setDefaults(
+							Notification.DEFAULT_SOUND
+									| Notification.DEFAULT_VIBRATE).build();
+			manager.notify(type, notification);
+		} catch (Exception e) {
+		}
+
+	}
+
+	/**
+	 * 清除所有通知.
+	 * 
+	 * @param context
+	 */
+
+	public static void clearNotification(Context context, int type) {
+		try {
+			NotificationManager manager = (NotificationManager) context
+					.getSystemService(Context.NOTIFICATION_SERVICE);
+			manager.cancel(type);
+		} catch (Exception e) {
+		}
+
+	}
+
+	public static void clearAllNotification(Context context) {
+		try {
+			NotificationManager manager = (NotificationManager) context
+					.getSystemService(Context.NOTIFICATION_SERVICE);
+			manager.cancelAll();
+
+		} catch (Exception e) {
+		}
+
+	}
+
+	/**
 	 * 调用PushManager.startWork后，sdk将对push
 	 * server发起绑定请求，这个过程是异步的。绑定请求的结果通过onBind返回。 如果您需要用单播推送，需要把这里获取的channel
 	 * id和user id上传到应用server中，再调用server接口用channel id和user id给单个手机或者用户推送。
@@ -63,17 +137,14 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 	@Override
 	public void onBind(Context context, int errorCode, String appid,
 			String userId, String channelId, String requestId) {
-		String responseString = "onBind errorCode=" + errorCode + " appid="
-				+ appid + " userId=" + userId + " channelId=" + channelId
-				+ " requestId=" + requestId;
-		Log.d(TAG, responseString);
-
 		// 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
 		if (errorCode == 0) {
 			PushUtils.setBind(context, true);
 			PushUtils.setUC(context, userId, channelId);
+			User user=UserCacheData.getUser();
+			user.setPushid(channelId);
+			new UserModel(context).updateUserPushId(user, false, null);
 		}
-		
 
 	}
 
@@ -108,7 +179,19 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 				e.printStackTrace();
 			}
 		}
-		MyToast.showCustomerToast("onMessage: " + messageString);
+		LogUtil.D(" onMessage: " + messageString);
+		try {
+			JSONObject object = new JSONObject(message);
+			Intent intent = new Intent(context, LoginActivity.class);
+			if (object.getInt("open_type") == 1) {
+				intent.putExtra("hasMsg", true);
+			}
+			String title = object.getString("title");
+			String msg = object.getString("description");
+			sendNotification(context, title, title, msg, intent, 1);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -145,6 +228,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 				e.printStackTrace();
 			}
 		}
+		LogUtil.D(" onNotificationClicked: " + notifyString);
 
 	}
 
@@ -234,7 +318,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 
 	}
 
-
 	@Override
 	public void onNotificationArrived(Context context, String title,
 			String description, String customContentString) {
@@ -242,7 +325,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 		String notifyString = "onNotificationArrived  title=\"" + title
 				+ "\" description=\"" + description + "\" customContent="
 				+ customContentString;
-		MyToast.showCustomerToast("onNotificationArrived: " + notifyString);
+		LogUtil.D(" onNotificationArrived: " + notifyString);
 	}
 
 }

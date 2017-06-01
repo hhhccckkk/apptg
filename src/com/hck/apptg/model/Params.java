@@ -57,4 +57,10 @@ public class Params {
 		params.put("page", page+"");
 		return params;
 	}
+	
+	static RequestParams getUserPushParams(User user){
+		RequestParams params = new RequestParams();
+		params.put("pushid", user.getPushid());
+		return params;
+	}
 }

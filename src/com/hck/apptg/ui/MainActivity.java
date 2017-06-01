@@ -14,9 +14,13 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+import com.baidu.android.pushservice.ADPushManager;
+import com.baidu.android.pushservice.PushConstants;
 import com.hck.apptg.R;
+import com.hck.apptg.data.Constant;
 import com.hck.apptg.presenter.MainPresenter;
 import com.hck.apptg.util.LogUtil;
+import com.hck.apptg.util.PushUtils;
 import com.hck.apptg.view.BadgeView;
 import com.hck.apptg.view.PopupWindowView;
 import com.hck.apptg.view.PopupWindowView.PopCallBack;
@@ -38,6 +42,7 @@ public class MainActivity extends TabActivity implements
 	private View remindView;
 	private MainPresenter mMainPresenter;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,7 +50,10 @@ public class MainActivity extends TabActivity implements
 		mMainPresenter = new MainPresenter(this);
 		initView();
 		setListener();
+		mMainPresenter.startPush();
 	}
+
+	
 
 	@SuppressWarnings("deprecation")
 	private void initView() {
@@ -82,8 +90,6 @@ public class MainActivity extends TabActivity implements
 	private void addSpec() {
 		tabSpec1 = tabHost.newTabSpec(ZIYUAN).setIndicator(ZIYUAN)
 				.setContent(new Intent(this, ZiYuanActivity.class));
-		LogUtil.D("tabSpec1tabSpec1: " + tabSpec1);
-		LogUtil.D("tabHost: " + tabHost);
 		tabHost.addTab(tabSpec1);
 		tabSpec2 = tabHost.newTabSpec(QUDAO).setIndicator(QUDAO)
 				.setContent(new Intent(this, QuDaoActivity.class));

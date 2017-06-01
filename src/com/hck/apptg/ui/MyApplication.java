@@ -3,18 +3,17 @@ package com.hck.apptg.ui;
 import android.app.Application;
 import android.graphics.Bitmap;
 
-import com.baidu.android.pushservice.ADPushManager;
-import com.baidu.android.pushservice.PushConstants;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.easemob.chat.EMChat;
+import com.easemob.easeui.controller.EaseUI;
 import com.hck.apptg.R;
-import com.hck.apptg.data.Constant;
 import com.hck.apptg.data.MyData;
+import com.hck.apptg.util.CrashMangerUtil;
 import com.hck.apptg.util.LogUtil;
 import com.hck.apptg.util.MyLocation;
 import com.hck.apptg.util.MyPreferences;
 import com.hck.apptg.util.MyToast;
-import com.hck.apptg.util.PushUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -25,16 +24,19 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 public class MyApplication extends Application {
 	private static final int memoryCacheSize = 1024 * 1024 * 5;
 	public static MyApplication myApplication;
-
+	 private static final String ERROR_LOG_PATH = "/apptg_log/";
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		EMChat.getInstance().init(this);
+	   EaseUI.getInstance().init(this);
 		myApplication = this;
-		startPush();
 		LogUtil.isPrintLog = true;
 		new MyPreferences(this);
 		getLocation();
 		initImagerLoder();
+		 CrashMangerUtil.getInstance().init(this, ERROR_LOG_PATH);
+		
 	}
 
 	private void initImagerLoder() {
@@ -58,12 +60,6 @@ public class MyApplication extends Application {
 
 	}
 
-	private void startPush() {
-		if (!PushUtils.hasBind(getApplicationContext())) {
-			ADPushManager.startWorkForAD(getApplicationContext(),
-					PushConstants.LOGIN_TYPE_API_KEY, Constant.PUSH_KEY);
-		}
-	}
 
 	private void getLocation() {
 		MyLocation.startLocation(this, new BDLocationListener() {

@@ -19,5 +19,8 @@ public class Constant {
 
 	public static final int TIEZI_TYPE_ZIYUAN = 1; // 资源
 	public static final int TIEZI_TYPE_QUDAO = 2; // 渠道
+	
+	public static final String PASSWORD = "hck123456hck"; // 默认用户密码
+	public static final String APP_NAME = "hckapptg";  //构建username
 
 }
