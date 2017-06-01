@@ -22,5 +22,13 @@ public class Constant {
 	
 	public static final String PASSWORD = "hck123456hck"; // 默认用户密码
 	public static final String APP_NAME = "hckapptg";  //构建username
+	
+	
+	public static final int CHATTYPE_SINGLE = 1;
+    public static final int CHATTYPE_GROUP = 2;
+    public static final int CHATTYPE_CHATROOM = 3;
+    
+    public static final String EXTRA_CHAT_TYPE = "chatType";
+    public static final String EXTRA_USER_ID = "userId";
 
 }
