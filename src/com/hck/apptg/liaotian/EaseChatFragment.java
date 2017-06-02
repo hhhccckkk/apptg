@@ -70,6 +70,8 @@ import com.easemob.util.EMLog;
 import com.easemob.util.PathUtil;
 import com.hck.apptg.bean.User;
 import com.hck.apptg.data.UserCacheData;
+import com.hck.apptg.db.UserBeanDB;
+import com.hck.apptg.db.UserDao;
 import com.hck.apptg.util.LogUtil;
 
 /**
@@ -129,6 +131,7 @@ public class EaseChatFragment extends EaseBaseFragment implements
 	private EMChatRoomChangeListener chatRoomChangeListener;
 	private boolean isMessageListInited;
 	protected MyItemClickListener extendMenuItemClickListener;
+	private UserDao mUserDao;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -140,6 +143,7 @@ public class EaseChatFragment extends EaseBaseFragment implements
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
+		mUserDao = new UserDao();
 		mUser = UserCacheData.getUser();
 		fragmentArgs = getArguments();
 		// 判断单聊还是群聊
@@ -567,15 +571,24 @@ public class EaseChatFragment extends EaseBaseFragment implements
 		case EventNewMessage:
 			// 获取到message
 			EMMessage message = (EMMessage) event.getData();
-			LogUtil.D("onEventonEvent: message"+message.toString());
+			LogUtil.D("onEventonEvent: message" + message.toString());
 			try {
-				String msg=message.getStringAttribute("nicheng");
-				LogUtil.D("msg: nicheng "+msg);
+				String nicheng = message.getStringAttribute("nicheng");
+				String touxiang = message.getStringAttribute("toxuiang");
+				long uid = message.getLongAttribute("uid");
+				String name = message.getFrom();
+				UserBeanDB userBeanDB = new UserBeanDB();
+				userBeanDB.setNicheng(nicheng);
+				userBeanDB.setTouxiang(touxiang);
+				userBeanDB.setUid(uid);
+				userBeanDB.setUserName(name);
+				mUserDao.saveUser(userBeanDB);
+				LogUtil.D("msg: nicheng " + nicheng);
 			} catch (EaseMobException e) {
 				e.printStackTrace();
-				LogUtil.D("msg: printStackTrace "+e);
+				LogUtil.D("msg: printStackTrace " + e);
 			}
-			
+
 			String username = null;
 			// 群组消息
 			if (message.getChatType() == ChatType.GroupChat
@@ -790,6 +803,7 @@ public class EaseChatFragment extends EaseBaseFragment implements
 	private void setMessageAttributes(EMMessage message) {
 		message.setAttribute("nicheng", mUser.getNicheng());
 		message.setAttribute("touxiang", mUser.getTouxiang());
+		message.setAttribute("uid", mUser.getId());
 	}
 
 	// 发送消息方法

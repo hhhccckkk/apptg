@@ -10,8 +10,11 @@ import com.baidu.android.pushservice.PushConstants;
 import com.easemob.easeui.controller.EaseUI;
 import com.easemob.easeui.controller.EaseUI.EaseUserProfileProvider;
 import com.easemob.easeui.domain.EaseUser;
+import com.google.android.gms.internal.el;
 import com.hck.apptg.R;
 import com.hck.apptg.data.Constant;
+import com.hck.apptg.db.UserBeanDB;
+import com.hck.apptg.model.UserModel;
 import com.hck.apptg.ui.FaTieActivity;
 import com.hck.apptg.ui.MainActivity;
 import com.hck.apptg.util.AppManager;
@@ -31,7 +34,10 @@ public class MainPresenter implements PopCallBack {
 
 	public MainPresenter(MainActivity mainActivity) {
 		this.mainActivity = mainActivity;
+		mUserModel = new UserModel(mainActivity);
 	}
+
+	private UserModel mUserModel;
 
 	public void startPush() {
 		if (!PushUtils.hasBind(mainActivity.getApplicationContext())) {
@@ -46,8 +52,19 @@ public class MainPresenter implements PopCallBack {
 
 					@Override
 					public EaseUser getUser(String username) {
+						UserBeanDB userBeanDB = mUserModel
+								.getUserByName(username);
+						if (userBeanDB != null) {
+							EaseUser easeUser = new EaseUser(username);
+							easeUser.setNick(userBeanDB.getNicheng());
+							easeUser.setAvatar(userBeanDB.getTouxiang());
+							easeUser.setEid(userBeanDB.getUid() + "");
+							easeUser.setUsername(username);
+							return easeUser;
+						} else {
+							return null;
+						}
 
-						return null;
 					}
 				});
 	}

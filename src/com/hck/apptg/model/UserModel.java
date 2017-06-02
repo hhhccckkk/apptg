@@ -12,6 +12,7 @@ import com.hck.apptg.bean.User;
 import com.hck.apptg.data.Constant;
 import com.hck.apptg.data.UserCacheData;
 import com.hck.apptg.db.UserBeanDB;
+import com.hck.apptg.db.UserDao;
 import com.hck.apptg.interfaces.RequestCallBack;
 import com.hck.apptg.util.JsonUtils;
 import com.hck.apptg.util.LogUtil;
@@ -23,9 +24,10 @@ public class UserModel implements IUser {
 	private String PREFECTUSER = "prefectUserP";
 	private String UPDATEUSERPUSHID = "updateUserPushidP";
 	private Context mContext;
-
+    private UserDao mUserDao;
 	public UserModel(Context context) {
 		mContext = context;
+		mUserDao=new UserDao();
 	}
 
 	@Override
@@ -129,5 +131,11 @@ public class UserModel implements IUser {
 		userBeanDB.setNicheng(user.getNicheng());
 		userBeanDB.setUserName(user.getName());
 		userBeanDB.setTouxiang(user.getTouxiang());
+		mUserDao.saveUser(userBeanDB);
+	}
+
+	@Override
+	public UserBeanDB getUserByName(String name) {
+         	return 	mUserDao.getUserByName(name);
 	}
 }
