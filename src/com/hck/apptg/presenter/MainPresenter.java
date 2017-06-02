@@ -14,6 +14,7 @@ import com.google.android.gms.internal.el;
 import com.hck.apptg.R;
 import com.hck.apptg.data.Constant;
 import com.hck.apptg.db.UserBeanDB;
+import com.hck.apptg.liaotian.MsgHelper;
 import com.hck.apptg.model.UserModel;
 import com.hck.apptg.ui.FaTieActivity;
 import com.hck.apptg.ui.MainActivity;
@@ -34,39 +35,18 @@ public class MainPresenter implements PopCallBack {
 
 	public MainPresenter(MainActivity mainActivity) {
 		this.mainActivity = mainActivity;
-		mUserModel = new UserModel(mainActivity);
+		setUserProfileProvider();
 	}
 
-	private UserModel mUserModel;
+	private void setUserProfileProvider() {
+		new MsgHelper(mainActivity).setUserProfileProvider();
+	}
 
 	public void startPush() {
 		if (!PushUtils.hasBind(mainActivity.getApplicationContext())) {
 			ADPushManager.startWorkForAD(mainActivity.getApplicationContext(),
 					PushConstants.LOGIN_TYPE_API_KEY, Constant.PUSH_KEY);
 		}
-	}
-
-	public void setUserProfileProvider() {
-		EaseUI.getInstance().setUserProfileProvider(
-				new EaseUserProfileProvider() {
-
-					@Override
-					public EaseUser getUser(String username) {
-						UserBeanDB userBeanDB = mUserModel
-								.getUserByName(username);
-						if (userBeanDB != null) {
-							EaseUser easeUser = new EaseUser(username);
-							easeUser.setNick(userBeanDB.getNicheng());
-							easeUser.setAvatar(userBeanDB.getTouxiang());
-							easeUser.setEid(userBeanDB.getUid() + "");
-							easeUser.setUsername(username);
-							return easeUser;
-						} else {
-							return null;
-						}
-
-					}
-				});
 	}
 
 	/**

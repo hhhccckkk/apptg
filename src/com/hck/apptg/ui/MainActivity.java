@@ -43,7 +43,6 @@ public class MainActivity extends TabActivity implements
 		initView();
 		setListener();
 		mMainPresenter.startPush();
-		mMainPresenter.setUserProfileProvider();
 	}
 
 	@SuppressWarnings("deprecation")

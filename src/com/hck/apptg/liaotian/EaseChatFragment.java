@@ -577,12 +577,8 @@ public class EaseChatFragment extends EaseBaseFragment implements
 				String touxiang = message.getStringAttribute("toxuiang");
 				long uid = message.getLongAttribute("uid");
 				String name = message.getFrom();
-				UserBeanDB userBeanDB = new UserBeanDB();
-				userBeanDB.setNicheng(nicheng);
-				userBeanDB.setTouxiang(touxiang);
-				userBeanDB.setUid(uid);
-				userBeanDB.setUserName(name);
-				mUserDao.saveUser(userBeanDB);
+				new MsgHelper(getActivity()).saveUser(nicheng, touxiang, uid,
+						name);
 				LogUtil.D("msg: nicheng " + nicheng);
 			} catch (EaseMobException e) {
 				e.printStackTrace();
