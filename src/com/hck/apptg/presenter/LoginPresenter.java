@@ -173,7 +173,6 @@ public class LoginPresenter {
 				try {
 					// 调用sdk注册方法
 					String username = user.getName();
-					LogUtil.D("regsterToMsgServer " + username);
 					EMChatManager.getInstance().createAccountOnServer(
 							username + user.getId(), Constant.PASSWORD);
 					MyPreferences.saveString("userName",

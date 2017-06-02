@@ -9,7 +9,8 @@ public class Params {
 		RequestParams params = new RequestParams();
 		params.put("imei", user.getImei() + "");
 		params.put("phone", user.getPhone() + "");
-		params.put("name", user.getNicheng() + "");
+		params.put("name", user.getName() + "");
+		params.put("nicheng", user.getNicheng());
 		params.put("address", user.getAddress() + "");
 		params.put("jindu", user.getJingdu() + "");
 		params.put("weidu", user.getWeidu() + "");

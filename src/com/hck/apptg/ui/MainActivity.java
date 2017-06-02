@@ -1,29 +1,20 @@
 package com.hck.apptg.ui;
 
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-import com.baidu.android.pushservice.ADPushManager;
-import com.baidu.android.pushservice.PushConstants;
+import com.easemob.chat.EMChat;
 import com.hck.apptg.R;
-import com.hck.apptg.data.Constant;
 import com.hck.apptg.presenter.MainPresenter;
-import com.hck.apptg.util.LogUtil;
-import com.hck.apptg.util.PushUtils;
 import com.hck.apptg.view.BadgeView;
-import com.hck.apptg.view.PopupWindowView;
-import com.hck.apptg.view.PopupWindowView.PopCallBack;
 
 public class MainActivity extends TabActivity implements
 		OnCheckedChangeListener {
@@ -47,13 +38,13 @@ public class MainActivity extends TabActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		EMChat.getInstance().setAppInited();
 		mMainPresenter = new MainPresenter(this);
 		initView();
 		setListener();
 		mMainPresenter.startPush();
+		mMainPresenter.setUserProfileProvider();
 	}
-
-	
 
 	@SuppressWarnings("deprecation")
 	private void initView() {

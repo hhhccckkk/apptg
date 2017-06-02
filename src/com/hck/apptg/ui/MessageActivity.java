@@ -6,17 +6,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.easemob.easeui.EaseConstant;
-import com.easemob.easeui.ui.EaseChatFragment;
 import com.hck.apptg.R;
-import com.hck.apptg.bean.User;
-import com.hck.apptg.data.UserCacheData;
+import com.hck.apptg.liaotian.MyConversationListFragment;
 
 public class MessageActivity extends BaseActivity implements OnClickListener {
 	private static final int LIAOTIAN_MSG = 1;
 	private static final int HUIFU_MSG = 2;
 	private static final int XITONG_MSG = 3;
-	private EaseChatFragment liaoTianFragment;
+	private MyConversationListFragment liaoTianFragment;
 	private HuiFuMsgFragment huiFuMsgFragment;
 	private TongZhiMsgFragment xiTongMsgFragment;
 
@@ -37,12 +34,12 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initFragment() {
-		liaoTianFragment = new EaseChatFragment();
-		Bundle bundle = new Bundle();
-		User user = UserCacheData.getUser();
-		bundle.putString(EaseConstant.EXTRA_USER_ID,
-				user.getName() + user.getId());
-		liaoTianFragment.setArguments(bundle);
+		liaoTianFragment = new MyConversationListFragment();
+		// Bundle bundle = new Bundle();
+		// User user = UserCacheData.getUser();
+		// bundle.putString(EaseConstant.EXTRA_USER_ID,
+		// user.getName() + user.getId());
+		// liaoTianFragment.setArguments(bundle);
 		huiFuMsgFragment = new HuiFuMsgFragment();
 		xiTongMsgFragment = new TongZhiMsgFragment();
 	}

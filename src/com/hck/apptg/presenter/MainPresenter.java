@@ -7,6 +7,9 @@ import android.widget.Button;
 
 import com.baidu.android.pushservice.ADPushManager;
 import com.baidu.android.pushservice.PushConstants;
+import com.easemob.easeui.controller.EaseUI;
+import com.easemob.easeui.controller.EaseUI.EaseUserProfileProvider;
+import com.easemob.easeui.domain.EaseUser;
 import com.hck.apptg.R;
 import com.hck.apptg.data.Constant;
 import com.hck.apptg.ui.FaTieActivity;
@@ -31,10 +34,22 @@ public class MainPresenter implements PopCallBack {
 	}
 
 	public void startPush() {
-	//	if (!PushUtils.hasBind(mainActivity.getApplicationContext())) {
+		if (!PushUtils.hasBind(mainActivity.getApplicationContext())) {
 			ADPushManager.startWorkForAD(mainActivity.getApplicationContext(),
 					PushConstants.LOGIN_TYPE_API_KEY, Constant.PUSH_KEY);
-	//	}
+		}
+	}
+
+	public void setUserProfileProvider() {
+		EaseUI.getInstance().setUserProfileProvider(
+				new EaseUserProfileProvider() {
+
+					@Override
+					public EaseUser getUser(String username) {
+
+						return null;
+					}
+				});
 	}
 
 	/**

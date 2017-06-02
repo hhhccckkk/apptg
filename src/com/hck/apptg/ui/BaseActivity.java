@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.easemob.easeui.controller.EaseUI;
+import com.easemob.easeui.controller.EaseUI.EaseUserProfileProvider;
+import com.easemob.easeui.domain.EaseUser;
 import com.hck.apptg.util.AppManager;
 import com.hck.apptg.util.MyPreferences;
 import com.hck.apptg.view.CustomAlertDialog;
