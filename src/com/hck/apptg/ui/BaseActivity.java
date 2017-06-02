@@ -16,10 +16,12 @@ import android.widget.TextView;
 import com.easemob.easeui.controller.EaseUI;
 import com.easemob.easeui.controller.EaseUI.EaseUserProfileProvider;
 import com.easemob.easeui.domain.EaseUser;
+import com.hck.apptg.db.DatabaseHelper;
 import com.hck.apptg.util.AppManager;
 import com.hck.apptg.util.MyPreferences;
 import com.hck.apptg.view.CustomAlertDialog;
 import com.hck.apptg.view.TitleBar;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 public class BaseActivity extends FragmentActivity {
 	public TitleBar mTitleBar;
@@ -134,6 +136,8 @@ public class BaseActivity extends FragmentActivity {
 	private void exit() {
 		MyPreferences.saveString("user", null);
 		AppManager.getAppManager().AppExit();
+		DatabaseHelper.getHelper().close();
+		OpenHelperManager.releaseHelper();
 		finish();
 	}
 

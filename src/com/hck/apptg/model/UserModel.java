@@ -11,6 +11,7 @@ import android.content.Context;
 import com.hck.apptg.bean.User;
 import com.hck.apptg.data.Constant;
 import com.hck.apptg.data.UserCacheData;
+import com.hck.apptg.db.UserBeanDB;
 import com.hck.apptg.interfaces.RequestCallBack;
 import com.hck.apptg.util.JsonUtils;
 import com.hck.apptg.util.LogUtil;
@@ -119,5 +120,14 @@ public class UserModel implements IUser {
 					}
 				});
 
+	}
+
+	@Override
+	public void saveUserToDb(User user) {
+		UserBeanDB userBeanDB = new UserBeanDB();
+		userBeanDB.setUid(user.getId());
+		userBeanDB.setNicheng(user.getNicheng());
+		userBeanDB.setUserName(user.getName());
+		userBeanDB.setTouxiang(user.getTouxiang());
 	}
 }

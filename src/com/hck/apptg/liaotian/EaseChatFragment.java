@@ -65,6 +65,7 @@ import com.easemob.easeui.widget.EaseChatMessageList;
 import com.easemob.easeui.widget.EaseVoiceRecorderView;
 import com.easemob.easeui.widget.EaseVoiceRecorderView.EaseVoiceRecorderCallback;
 import com.easemob.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.easemob.exceptions.EaseMobException;
 import com.easemob.util.EMLog;
 import com.easemob.util.PathUtil;
 import com.hck.apptg.bean.User;
@@ -567,6 +568,14 @@ public class EaseChatFragment extends EaseBaseFragment implements
 			// 获取到message
 			EMMessage message = (EMMessage) event.getData();
 			LogUtil.D("onEventonEvent: message"+message.toString());
+			try {
+				String msg=message.getStringAttribute("nicheng");
+				LogUtil.D("msg: nicheng "+msg);
+			} catch (EaseMobException e) {
+				e.printStackTrace();
+				LogUtil.D("msg: printStackTrace "+e);
+			}
+			
 			String username = null;
 			// 群组消息
 			if (message.getChatType() == ChatType.GroupChat
