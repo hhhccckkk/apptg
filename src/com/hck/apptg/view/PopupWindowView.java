@@ -1,6 +1,7 @@
 package com.hck.apptg.view;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,9 +29,22 @@ public class PopupWindowView implements OnClickListener {
 		popupWindow = new PopupWindow(pView, MyTools.getScreenWidth(context),
 				MyTools.getScreenHeight(context));
 
-		popupWindow.setTouchable(true);
+		popupWindow.setTouchable(false);
 		popupWindow.setOutsideTouchable(true);
-		popupWindow.showAsDropDown(view);
+
+		int[] location = new int[2];
+		view.getLocationOnScreen(location);
+		// 获取自身的长宽高
+		pView.measure(View.MeasureSpec.UNSPECIFIED,
+				View.MeasureSpec.UNSPECIFIED);
+		int popupHeight = pView.getMeasuredHeight();
+		int popupWidth = pView.getMeasuredWidth();
+
+		// 在控件上方显示
+		popupWindow.showAtLocation(view, Gravity.NO_GRAVITY,
+				(location[0] + view.getWidth() / 2) - popupWidth / 2, location[1]
+						- popupHeight);
+
 		setListener(pView);
 
 	}

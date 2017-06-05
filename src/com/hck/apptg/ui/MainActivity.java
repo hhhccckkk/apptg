@@ -42,7 +42,7 @@ public class MainActivity extends TabActivity implements
 		mMainPresenter = new MainPresenter(this);
 		initView();
 		setListener();
-		mMainPresenter.startPush();
+		//mMainPresenter.startPush();
 	}
 
 	@SuppressWarnings("deprecation")

@@ -866,6 +866,7 @@ public class EaseChatFragment extends EaseBaseFragment implements
 		} else if (chatType == EaseConstant.CHATTYPE_CHATROOM) {
 			message.setChatType(ChatType.ChatRoom);
 		}
+
 		// 发送消息
 		EMChatManager.getInstance().sendMessage(message, null);
 
