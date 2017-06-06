@@ -1,12 +1,13 @@
 package com.hck.apptg.view;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
-import android.widget.PopupWindow.OnDismissListener;
 
 import com.hck.apptg.R;
 import com.hck.apptg.util.LogUtil;
@@ -20,7 +21,7 @@ public class PopupWindowView implements OnClickListener {
 		void fatieZiYuan();
 
 		void fatieQuDao();
-		
+
 		void dissMis();
 
 	}
@@ -30,9 +31,8 @@ public class PopupWindowView implements OnClickListener {
 		this.popCallBack = popCallBack;
 		View pView = LayoutInflater.from(context).inflate(R.layout.pop_fatie,
 				null);
-		popupWindow = new PopupWindow(pView, MyTools.getScreenWidth(context),
-				MyTools.getScreenHeight(context));
-
+		popupWindow=new PopupWindow(pView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		//popupWindow.setBackgroundDrawable(new ColorDrawable());
 		popupWindow.setTouchable(true);
 		popupWindow.setOutsideTouchable(true);
 
@@ -43,12 +43,10 @@ public class PopupWindowView implements OnClickListener {
 				View.MeasureSpec.UNSPECIFIED);
 		int popupHeight = pView.getMeasuredHeight();
 		int popupWidth = pView.getMeasuredWidth();
-
 		// 在控件上方显示
-		popupWindow.showAtLocation(view, Gravity.NO_GRAVITY,
-				(location[0] + view.getWidth() / 2) - popupWidth / 2, location[1]
-						- popupHeight);
-
+		int x = (location[0] + view.getWidth() / 2) - popupWidth / 2;
+		int y = location[1] - popupHeight;
+		popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, x, y);
 		setListener(pView);
 
 	}
