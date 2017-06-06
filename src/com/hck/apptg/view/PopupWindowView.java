@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 
 import com.hck.apptg.R;
+import com.hck.apptg.util.LogUtil;
 import com.hck.apptg.util.MyTools;
 
 public class PopupWindowView implements OnClickListener {
@@ -18,6 +20,8 @@ public class PopupWindowView implements OnClickListener {
 		void fatieZiYuan();
 
 		void fatieQuDao();
+		
+		void dissMis();
 
 	}
 
@@ -29,7 +33,7 @@ public class PopupWindowView implements OnClickListener {
 		popupWindow = new PopupWindow(pView, MyTools.getScreenWidth(context),
 				MyTools.getScreenHeight(context));
 
-		popupWindow.setTouchable(false);
+		popupWindow.setTouchable(true);
 		popupWindow.setOutsideTouchable(true);
 
 		int[] location = new int[2];

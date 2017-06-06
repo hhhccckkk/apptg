@@ -2,12 +2,14 @@ package com.hck.apptg.liaotian;
 
 import android.content.Context;
 
+import com.easemob.chat.EMMessage;
 import com.easemob.easeui.controller.EaseUI;
 import com.easemob.easeui.controller.EaseUI.EaseUserProfileProvider;
 import com.easemob.easeui.domain.EaseUser;
 import com.hck.apptg.bean.User;
 import com.hck.apptg.db.UserBeanDB;
 import com.hck.apptg.model.UserModel;
+import com.hck.apptg.util.LogUtil;
 
 public class MsgHelper {
 	private UserModel mUserModel;
@@ -42,13 +44,23 @@ public class MsgHelper {
 				});
 	}
 
-	public void saveUser(String nicheng, String touxiang, Long uid, String name) {
-		User user = new User();
-		user.setName(name);
-		user.setNicheng(nicheng);
-		user.setId(uid);
-		user.setTouxiang(touxiang);
-		mUserModel.saveUserToDb(user);
+	
+	public void saveUser(EMMessage message){
+		try {
+			String nicheng = message.getStringAttribute("nicheng");
+			String touxiang = message.getStringAttribute("touxiang");
+			long uid = message.getLongAttribute("uid");
+			String name = message.getFrom();
+			User user = new User();
+			user.setName(name);
+			user.setNicheng(nicheng);
+			user.setId(uid);
+			user.setTouxiang(touxiang);
+			mUserModel.saveUserToDb(user);
+		} catch (Exception e) {
+			
+		}
+		
 	}
 
 }

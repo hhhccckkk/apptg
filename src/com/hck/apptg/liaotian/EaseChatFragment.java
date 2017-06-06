@@ -571,21 +571,15 @@ public class EaseChatFragment extends EaseBaseFragment implements
 		case EventNewMessage:
 			// 获取到message
 			EMMessage message = (EMMessage) event.getData();
-			LogUtil.D("onEventonEvent: message" + message.toString());
+			String username = null;
+			new MsgHelper(getActivity()).saveUser(message);
 			try {
-				String nicheng = message.getStringAttribute("nicheng");
-				String touxiang = message.getStringAttribute("toxuiang");
-				long uid = message.getLongAttribute("uid");
-				String name = message.getFrom();
-				new MsgHelper(getActivity()).saveUser(nicheng, touxiang, uid,
-						name);
-				LogUtil.D("msg: nicheng " + nicheng);
+				String touxiang = message.getStringAttribute("touxiang");
+				LogUtil.D("touxiang: " + touxiang);
 			} catch (EaseMobException e) {
 				e.printStackTrace();
-				LogUtil.D("msg: printStackTrace " + e);
+				LogUtil.D("EaseMobException: " + e);
 			}
-
-			String username = null;
 			// 群组消息
 			if (message.getChatType() == ChatType.GroupChat
 					|| message.getChatType() == ChatType.ChatRoom) {
@@ -856,9 +850,17 @@ public class EaseChatFragment extends EaseBaseFragment implements
 	}
 
 	protected void sendMessage(EMMessage message) {
+		LogUtil.D("sendMessage: " + message.toString());
+		try {
+			LogUtil.D("ddddddddddd: " + message.getStringAttribute("touxiang"));
+		} catch (Exception e) {
+			LogUtil.D(" Exception:" + e);
+		}
+
 		if (chatFragmentHelper != null) {
 			// 设置扩展属性
 			chatFragmentHelper.onSetMessageAttributes(message);
+			LogUtil.D(" chatFragmentHelper:");
 		}
 		// 如果是群聊，设置chattype,默认是单聊
 		if (chatType == EaseConstant.CHATTYPE_GROUP) {

@@ -55,7 +55,7 @@ public class MainPresenter implements PopCallBack {
 	 * @param button
 	 */
 	public void showPopWindown(Button button) {
-		if (pWindowView != null) {
+		if (pWindowView != null && pWindowView.popupWindow.isShowing()) {
 			hidenPop();
 		} else {
 			pWindowView = new PopupWindowView();
@@ -137,5 +137,11 @@ public class MainPresenter implements PopCallBack {
 		Intent intent = new Intent();
 		intent.putExtra("type", Constant.TIEZI_TYPE_ZIYUAN);
 		AppManager.getAppManager().startActivity(mainActivity, intent);
+	}
+
+	@Override
+	public void dissMis() {
+		pWindowView = null;
+
 	}
 }
